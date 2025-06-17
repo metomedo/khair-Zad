@@ -1,123 +1,117 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>خير زاد</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>خير زاد - متجر المنتجات الطبيعية</title>
   <style>
-    body {
-      font-family: 'Tahoma', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f9f9f9;
-    }
-    header {
-      background: linear-gradient(to right, #004d00, #009933);
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      padding: 20px;
-    }
-    h2 {
-      color: #004d00;
-      border-bottom: 2px solid #ccc;
-      padding-bottom: 5px;
-    }
-    .product {
-      display: flex;
-      align-items: center;
-      margin-bottom: 20px;
-      background-color: #fff;
-      padding: 10px;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    .product img {
-      width: 100px;
-      height: 100px;
-      border-radius: 8px;
-      margin-left: 15px;
-    }
-    .product p {
-      font-size: 16px;
-      margin: 0;
-    }
-    .payment-form, .subscribe {
-      background-color: #fff;
-      padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      margin-top: 20px;
-    }
-    input, button {
-      display: block;
-      width: 100%;
-      margin: 10px 0;
-      padding: 10px;
-      font-size: 15px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
-    button {
-      background-color: #009933;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #007a29;
-    }
+    body { font-family: Tahoma, sans-serif; background: #f6f6f2; margin: 0; padding: 0; }
+    header { background: #8DB596; color: #fff; padding: 20px; text-align: center; }
+    header h1 { margin: 0; font-size: 2em; }
+    .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 20px; }
+    .product { background: #fff; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; flex-direction: column; align-items: center;}
+    .product img { width: 100%; height: 160px; object-fit: cover; border-radius: 8px; }
+    .product h3 { margin: 10px 0 5px; font-size: 1.2em; }
+    .product p { margin: 5px 0; font-weight: bold; color: #557C55; }
+    .product button { margin-top: auto; padding: 10px 20px; background: #557C55; color: #fff; border: none; border-radius: 5px; cursor: pointer; }
+    .cart { position: fixed; top: 20px; left: 20px; background: #fff; padding: 10px 15px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+    .cart span { font-weight: bold; }
+    .checkout, .subscribe, .payment, .auth { background: #e0ebdf; padding: 20px; text-align: center; margin: 20px; border-radius: 8px; }
+    .checkout button, .auth button, .subscribe button { padding: 10px 20px; margin-top: 10px; background: #557C55; color: #fff; border: none; border-radius: 5px; cursor: pointer; }
+    footer { background: #557C55; color: #fff; padding: 15px; text-align: center; }
+    input[type="email"], input[type="text"], input[type="password"] { padding: 10px; width: 80%; max-width: 300px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>خير زاد</h1>
-    <p>منتجات طبيعية وصحية</p>
-    <p>للتواصل: 01005240052 - 01112948606</p>
-  </header>
+<header>
+  <h1>🌿 خير زاد</h1>
+  <p>منتجات طبيعية وصحية مع خدمة احترافية</p>
+</header>
 
-  <div class="container">
+<div class="cart">
+  السلة: <span id="cart-count">0</span> عناصر
+</div>
 
-    <h2>السبريد</h2>
+<section class="products" id="products"></section>
 
-    <div class="product">
-      <img src="https://i.imgur.com/t1dZq8M.jpg" alt="سبريد بالفستق">
-      <p>سبريد بالفستق - 100 جنيه</p>
-    </div>
+<section class="auth">
+  <h2>تسجيل أو الدخول</h2>
+  <input type="email" id="email" placeholder="بريد إلكتروني">
+  <input type="password" id="password" placeholder="كلمة المرور">
+  <button onclick="login()">تسجيل / دخول</button>
+  <p id="auth-status">غير مسجل</p>
+</section>
 
-    <div class="product">
-      <img src="https://i.imgur.com/3tYYQXc.jpg" alt="سبريد نوتيلا بالمكسرات">
-      <p>سبريد نوتيلا بالمكسرات - 120 جنيه</p>
-    </div>
+<section class="subscribe">
+  <h2>اشترك ليصلك كل جديد</h2>
+  <input type="email" id="subs-email" placeholder="ادخل بريدك الإلكتروني">
+  <button>اشتراك</button>
+</section>
 
-    <div class="product">
-      <img src="https://i.imgur.com/Y1a6Q1F.jpg" alt="سبريد السوداني">
-      <p>سبريد السوداني - 120 جنيه</p>
-    </div>
+<section class="payment">
+  <h2>طرق الدفع المتاحة</h2>
+  <p>💳 فيزا - 💳 ماستر كارد - 💰 دفع عند الاستلام</p>
+</section>
 
-    <h2>الدفع</h2>
-    <div class="payment-form">
-      <p>ادخل بياناتك للدفع:</p>
-      <input type="text" placeholder="الاسم على البطاقة">
-      <input type="number" placeholder="رقم البطاقة">
-      <input type="text" placeholder="تاريخ الانتهاء (MM/YY)">
-      <input type="number" placeholder="رمز CVV">
-      <button>ادفع الآن</button>
-    </div>
+<section class="checkout">
+  <h2>تابع الدفع</h2>
+  <button onclick="checkout()">اذهب للدفع</button>
+</section>
 
-    <h2>اشترك معنا</h2>
-    <div class="subscribe">
-      <p>سجل إيميلك ليصلك جديد العروض:</p>
-      <input type="email" placeholder="ادخل بريدك الإلكتروني">
-      <button>اشترك</button>
-    </div>
+<footer>
+  &copy; 2025 خير زاد - جميع الحقوق محفوظة
+</footer>
 
-  </div>
+<script>
+  const products = [
+    { id:1, name:'سبريد فستق', price:80, img:'https://via.placeholder.com/300x160?text=Fistik+Spread' },
+    { id:2, name:'سناك شوفان', price:40, img:'https://via.placeholder.com/300x160?text=Oats+Snack' },
+    { id:3, name:'كوكيز بدون جلوتين', price:60, img:'https://via.placeholder.com/300x160?text=Gluten+Free+Cookies' },
+    { id:4, name:'خبز صحي', price:50, img:'https://via.placeholder.com/300x160?text=Healthy+Bread' }
+  ];
+  let cart = [];
+  let user = null;
+
+  function renderProducts(){
+    const cont = document.getElementById('products');
+    cont.innerHTML = '';
+    products.forEach(p => {
+      const div = document.createElement('div');
+      div.className = 'product';
+      div.innerHTML = `
+        <img src="${p.img}" alt="${p.name}">
+        <h3>${p.name}</h3>
+        <p>${p.price+20} جنيه</p>
+        <button onclick="addToCart(${p.id})">أضف للسلة</button>`;
+      cont.appendChild(div);
+    });
+  }
+
+  function addToCart(id){
+    cart.push(id);
+    document.getElementById('cart-count').innerText = cart.length;
+    alert('تم الإضافة إلى السلة');
+  }
+
+  function login(){
+    const email = document.getElementById('email').value;
+    if(email && document.getElementById('password').value){
+      user = email;
+      document.getElementById('auth-status').innerText = 'مسجل كـ ' + user;
+    } else {
+      alert('من فضلك املأ البريد والكلمة');
+    }
+  }
+
+  function checkout(){
+    if(!user) return alert('من فضلك سجل دخول أولاً');
+    if(cart.length === 0) return alert('السلة فارغة');
+    alert(`شكرًا يا ${user}, سيتم تحويلك للدفع...`);
+  }
+
+  renderProducts();
+</script>
 
 </body>
 </html>
